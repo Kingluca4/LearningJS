@@ -1,6 +1,11 @@
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
+const chalk = require('chalk')
+
+const url = 'http://localhost:3000';
+const styledUrl = chalk.bgMagenta.whiteBright.underline(url);
+console.log(`Visit ${styledUrl} in your browser.`);
 
 const app = express()
 
