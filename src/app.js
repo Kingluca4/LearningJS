@@ -3,13 +3,13 @@ const express = require('express')
 const hbs = require('hbs')
 const chalk = require('chalk')
 const weatherFunction = require('./weather');
-const { log } = require('console');
+const app = express();
+
 
 const url = 'http://localhost:3000';
 const styledUrl = chalk.bgMagenta.whiteBright.underline(url);
 console.log(`Visit ${styledUrl} in your browser.`);
 
-const app = express()
 
 // Define paths for Express config
 const publicDirectoryPath = path.join(__dirname, '../public')
@@ -45,14 +45,18 @@ app.get('/help', (req, res) => {
         name: 'Andrew Mead'
     })
 })
-// 77ea34b4246288115a4ec2d84de19d40 API key
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////     77ea34b4246288115a4ec2d84de19d40 API key          //////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/weather', async (req, res) => {
+    
     try {
         // Wait for weatherFunction to complete
         var weatherData = await weatherFunction(req.query.city, req.query.region);
         
-        // Send the response with the weather data
+            // Send the response with the weather data
         res.send(weatherData);
     } catch (error) {
         // Handle errors
@@ -60,6 +64,24 @@ app.get('/weather', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+
+app.get('/weatherApp', async (req, res) => {
+
+    try {
+        var weatherReq = await weatherReq(req.query.city, req.query.region)
+
+        res.send(weatherReq);
+    } catch (error) {
+        console.error('Error:', error.message);
+        res.status(500).send('Internal Server Error');
+
+    }
+    res.render('WeatherApp', {
+        title: 'Check your Local Weather!',
+        name: 'Made by BOS',
+    })
+})
 
 app.get('/products', (req, res)=>{
     if(!req.query.search) {
@@ -69,7 +91,6 @@ app.get('/products', (req, res)=>{
     } 
     console.log(req.query);
     res.send(req.query)
-    res.send
 })
 
 app.get('/help/*', (req, res) => {
