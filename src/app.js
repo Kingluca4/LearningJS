@@ -2,6 +2,8 @@ const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
 const chalk = require('chalk')
+const weatherFunction = require('./weather');
+const { log } = require('console');
 
 const url = 'http://localhost:3000';
 const styledUrl = chalk.bgMagenta.whiteBright.underline(url);
@@ -43,12 +45,31 @@ app.get('/help', (req, res) => {
         name: 'Andrew Mead'
     })
 })
+// 77ea34b4246288115a4ec2d84de19d40 API key
 
-app.get('/weather', (req, res) => {
-    res.send({
-        forecast: 'It is snowing',
-        location: 'Philadelphia'
-    })
+app.get('/weather', async (req, res) => {
+    try {
+        // Wait for weatherFunction to complete
+        var weatherData = await weatherFunction(req.query.city, req.query.region);
+        
+        // Send the response with the weather data
+        res.send(weatherData);
+    } catch (error) {
+        // Handle errors
+        console.error('Error:', error.message);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.get('/products', (req, res)=>{
+    if(!req.query.search) {
+        return res.send({
+            error: 'You must input something'
+        })
+    } 
+    console.log(req.query);
+    res.send(req.query)
+    res.send
 })
 
 app.get('/help/*', (req, res) => {
