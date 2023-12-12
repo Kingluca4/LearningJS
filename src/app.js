@@ -67,16 +67,6 @@ app.get('/weather', async (req, res) => {
 
 
 app.get('/weatherApp', async (req, res) => {
-
-    try {
-        var weatherReq = await weatherReq(req.query.city, req.query.region)
-
-        res.send(weatherReq);
-    } catch (error) {
-        console.error('Error:', error.message);
-        res.status(500).send('Internal Server Error');
-
-    }
     res.render('WeatherApp', {
         title: 'Check your Local Weather!',
         name: 'Made by BOS',
