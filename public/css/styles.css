@@ -42,9 +42,11 @@ header a {
 }
 #myResults {
     white-space: pre-wrap;
-    font-family: monospace;
+    font-family: monospace, bold;
     margin: 10px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 2px solid #333232;
     background-color: #f8f8f8;
+    color: black;
+    font-size: large;
 }
