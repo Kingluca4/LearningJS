@@ -29,7 +29,13 @@ document.getElementById('weatherInfo').addEventListener('click', async function 
         const data = await response.json();
         console.log('GET request successful');
         console.log('Response data:', data);
-    } catch (error) {
+
+        const { temperature, humidity } = data.current;
+        const { name, country, region } = data.location;
+
+        const displayText = `Temperature: ${temperature}°C\nName: ${name}\nCountry: ${country}\nRegion: ${region}\nHumidity: ${humidity}`;
+        document.getElementById("myResults").innerText = displayText;
+        } catch (error) {
         console.error('Error making GET request:', error.message);
     }
 });

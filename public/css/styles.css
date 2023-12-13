@@ -40,3 +40,11 @@ header a {
 .portrait {
     width: 250px;
 }
+#myResults {
+    white-space: pre-wrap;
+    font-family: monospace;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+}
